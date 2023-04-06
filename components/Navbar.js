@@ -11,7 +11,8 @@ import {
 } from "react-icons/ai";
 import { BsFillBagCheckFill } from "react-icons/bs";
 
-const Navbar = () => {
+const Navbar = ({ cart, addToCart, removeFormCart, clearCart, subTotal }) => {
+  console.log(cart, addToCart);
   const toggleCart = () => {
     if (ref.current.classList.contains("translate-x-full")) {
       ref.current.classList.remove("translate-x-full");
@@ -70,28 +71,23 @@ const Navbar = () => {
               <AiFillCloseCircle className="text-pink-500 text-3xl" />
             </span>
             <ol className="list-decimal font-bold py-4">
-              <li>
-                <div className="flex">
-                  <div className="flex w-2/3 py-4">Thisr Ware the Code</div>
-                  <div className="w-1/3 flex justify-center items-center text-lg w-1/3">
-                    <AiFillPlusCircle className="cursor-pointer text-pink-500 text-3xl" />{" "}
-                    <span className="mx-2">1 </span>
-                    <AiFillMinusCircle className="cursor-pointer text-pink-500 text-3xl" />
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className="flex">
-                  <div className="flex w-2/3">
-                    Thisr Ware the Code hsdf sdfjsidfj sdifjsidf{" "}
-                  </div>
-                  <div className="w-1/3 flex justify-center items-center text-lg w-1/3">
-                    <AiFillPlusCircle className="cursor-pointer text-pink-500 text-3xl" />{" "}
-                    <span className="mx-2">1 </span>
-                    <AiFillMinusCircle className="cursor-pointer text-pink-500 text-3xl" />
-                  </div>
-                </div>
-              </li>
+              {Object.keys(cart).length === 0 && (
+                <div className="text-center">Now Shoping cart is Empty</div>
+              )}
+              {Object.keys(cart).map((k) => {
+                return (
+                  <li key={k}>
+                    <div className="flex">
+                      <div className="flex w-2/3 py-4">{cart[k].name}</div>
+                      <div className="w-1/3 flex justify-center items-center text-lg w-1/3">
+                        <AiFillPlusCircle className="cursor-pointer text-pink-500 text-3xl" />{" "}
+                        <span className="mx-2">{cart[k].qty} </span>
+                        <AiFillMinusCircle className="cursor-pointer text-pink-500 text-3xl" />
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
             </ol>
             <div class="p-2 w-full flex">
               <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-4  hover:bg-indigo-600 rounded text-lg">
